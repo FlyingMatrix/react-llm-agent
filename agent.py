@@ -1,5 +1,6 @@
-import click
 import os
+import click
+import inspect
 from ollama import Ollama
 from typing import List, Callable, Tuple
 from prompt_template import react_system_prompt_template
@@ -18,6 +19,14 @@ class ReActAgent():
     def render_system_prompt(self, system_prompt_template: str) -> str:
         pass
 
+    def get_tool_list(self) -> str:
+        tool_descriptions = []
+        for func in self.tools.values():
+            name = func.__name__
+            signature = str(inspect.signature(func))
+            doc = inspect.getdoc(func)
+            tool_descriptions.append(f"- {name}{signature}: {doc}")
+        return "\n".join(tool_descriptions)
 
 # tool functions
 def read_file(file_path):
