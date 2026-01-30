@@ -1,7 +1,9 @@
 import os
 import click
 import inspect
+import platform
 from ollama import Ollama
+from string import Template
 from typing import List, Callable, Tuple
 from prompt_template import react_system_prompt_template
 
@@ -17,7 +19,23 @@ class ReActAgent():
         pass
 
     def render_system_prompt(self, system_prompt_template: str) -> str:
-        pass
+        tool_list = self.get_tool_list()
+        file_list = ", ".join(
+            os.path.abspath(os.path.join(self.project_directory, file))
+            for file in os.listdir(self.project_directory)
+        )
+        return Template(system_prompt_template).substitute(
+            tool_list = tool_list,
+            file_list = file_list,
+            operating_system = self.get_operating_system()
+        )
+    
+    def get_operating_system(self):
+        return {
+            "Darwin": "macOS",
+            "Windows": "Windows",
+            "Linux": "Linux",
+        }.get(platform.system(), "Unknown")
 
     def get_tool_list(self) -> str:
         tool_descriptions = []
