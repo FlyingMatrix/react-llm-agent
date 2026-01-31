@@ -2,7 +2,7 @@ import os
 import click
 import inspect
 import platform
-from ollama import Ollama
+import ollama
 from string import Template
 from typing import List, Callable, Tuple
 from prompt_template import react_system_prompt_template
@@ -13,10 +13,16 @@ class ReActAgent():
         self.tools = {func.__name__: func for func in tools}
         self.model = model
         self.project_directory = project_directory
-        self.client = Ollama() # local Ollama client
 
     def run(self, user_input: str):
         pass
+
+    def call_model(self, messages):
+        print(">>> Calling Ollama model, please wait ...")
+        response = ollama.chat(model=self.model, messages=messages)
+        content = response["message"]["content"]
+        messages.append({"role": "assistant", "content": content})
+        return content
 
     def render_system_prompt(self, system_prompt_template: str) -> str:
         tool_list = self.get_tool_list()
@@ -29,13 +35,6 @@ class ReActAgent():
             file_list = file_list,
             operating_system = self.get_operating_system()
         )
-    
-    def get_operating_system(self):
-        return {
-            "Darwin": "macOS",
-            "Windows": "Windows",
-            "Linux": "Linux",
-        }.get(platform.system(), "Unknown")
 
     def get_tool_list(self) -> str:
         tool_descriptions = []
@@ -45,6 +44,13 @@ class ReActAgent():
             doc = inspect.getdoc(func)
             tool_descriptions.append(f"- {name}{signature}: {doc}")
         return "\n".join(tool_descriptions)
+    
+    def get_operating_system(self):
+        return {
+            "Darwin": "macOS",
+            "Windows": "Windows",
+            "Linux": "Linux",
+        }.get(platform.system(), "Unknown")
 
 # tool functions
 def read_file(file_path):
