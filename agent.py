@@ -1,4 +1,5 @@
 import os
+import re
 import ast
 import click
 import inspect
@@ -19,7 +20,51 @@ class ReActAgent():
         pass
 
     def parse_action(self, code_str: str) -> Tuple[str, List[str]]:
-        pass
+        match = re.match(r"(\w+)\((.*)\)", code_str, re.DOTALL) # regular expression: (\w+) -> function name, \((.*)\) -> everything inside parentheses
+        if not match:
+            raise ValueError("Invalid function call syntax")
+        func_name = match.group(1)
+        args_str = match.group(2).strip()
+        # initialize parsing state
+        args = []               # args -> list to store parsed arguments
+        current_arg = ""        # current_arg -> current argument
+        in_string = False       # in_string -> if inside a string literal ('...' or "...")
+        string_char = None      # string_char -> whether the string is single ' or double " quotes
+        paren_depth = 0         # tracks nested parentheses to avoid splitting on commas inside nested calls
+        # iterate over each character in args_str
+        for i, char in enumerate(args_str):
+            if not in_string: # handle logic when not inside a string
+                if char in ["'", '"']:
+                    in_string = True
+                    string_char = char
+                    current_arg += char
+                elif char == "(":
+                    paren_depth += 1
+                elif char == ")":
+                    paren_depth -= 1
+                elif char == "," and paren_depth == 0: # if a comma at top level (paren_depth == 0) -> end of an argument
+                    args.append(self._parse_single_arg(current_arg.strip()))
+                    current_arg = ""
+                    continue
+            else: # handle logic when inside a string
+                if char == string_char and args_str[i - 1] != "\\": 
+                    in_string = False 
+                    string_char = None
+            current_arg += char
+            # handle the last argument
+            if current_arg.strip(): 
+                args.append(self._parse_single_arg(current_arg.strip()))
+
+            # return function name and argument list
+            return func_name, args 
+        """
+            for example: 
+                input:  code_str = "move_to(10, 'kitchen', turn_left(90))"
+                ourput: (
+                            "move_to",
+                            ["10", "'kitchen'", "turn_left(90)"]
+                        )
+        """      
 
     def _parse_single_arg(self, arg_str: str): # safely convert arg_str into a Python literal value
         arg_str = arg_str.strip() 
