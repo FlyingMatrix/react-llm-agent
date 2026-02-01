@@ -17,9 +17,15 @@ class ReActAgent():
     def run(self, user_input: str):
         pass
 
+    def parse_action(self, code_str: str) -> Tuple[str, List[str]]:
+        pass
+
+    def parse_single_arg(self, arg_str: str):
+        pass
+
     def call_model(self, messages):
         print(">>> Calling Ollama model, please wait ...")
-        response = ollama.chat(model=self.model, messages=messages)
+        response = ollama.chat(model=self.model, messages=messages, options={"temperature": 0.2})
         content = response["message"]["content"]
         messages.append({"role": "assistant", "content": content})
         return content
