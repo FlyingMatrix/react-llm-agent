@@ -17,7 +17,63 @@ class ReActAgent():
         self.project_directory = project_directory
 
     def run(self, user_input: str):
-        pass
+        messages = [
+            {
+                "role": "system",
+                "content": self.render_system_prompt(react_system_prompt_template),
+            },
+            {
+                "role": "user",
+                "content": f"<question>{user_input}</question>",
+            },
+        ]
+
+        while True:
+            content = self.call_model(messages)
+
+            # thought
+            thought_match = re.search(
+                r"<thought>(.*?)</thought>", 
+                content, 
+                re.DOTALL
+            )
+            if thought_match:
+                print(f"\n\n Thought: {thought_match.group(1)}")
+
+            # final answer
+            if "<final_answer>" in content:
+                final_answer = re.search(
+                    r"<final_answer>(.*?)</final_answer>",
+                    content,
+                    re.DOTALL,
+                )
+                return final_answer.group(1)
+            
+            # action
+            action_match = re.search(r"<action>(.*?)</action>", content, re.DOTALL)
+            if not action_match:
+                raise RuntimeError(">>> The model has not yet produced any <action> output...")
+            action = action_match.group(1)
+            tool_name, args = self.parse_action(code_str=action)
+            print(f"\n\n Action: {tool_name}({', '.join(map(str, args))})") # -> "Action: tool_name(arg1, arg2, arg3)"     
+
+            should_continue = input("\n\n >>> Do you want to continue?（y/n）") if tool_name == "run_terminal_command" else "y"
+            if should_continue.lower() != "y":
+                return ">>> The operation was canceled by the user!"
+            
+            # observation
+            try:
+                observation = self.tools[tool_name](*args) # relevant tool function is executed
+            except Exception as e:
+                observation = f">>> An error occurred while executing the tool function: {str(e)}"
+            print(f"\n\n Observation：{observation}") # here the observation is the return value of the tool function execution
+
+            messages.append(
+                {
+                    "role": "user",
+                    "content": f"<observation>{observation}</observation>",
+                }
+            )
 
     def parse_action(self, code_str: str) -> Tuple[str, List[str]]:
         match = re.match(r"(\w+)\((.*)\)", code_str, re.DOTALL) # regular expression: (\w+) -> function name, \((.*)\) -> everything inside parentheses
@@ -79,7 +135,7 @@ class ReActAgent():
             return arg_str
 
     def call_model(self, messages):
-        print(">>> Calling Ollama model, please wait ...")
+        print(">>> Calling Ollama model, please wait...")
         response = ollama.chat(model=self.model, messages=messages, options={"temperature": 0.2})
         content = response["message"]["content"]
         messages.append({"role": "assistant", "content": content})
@@ -151,3 +207,4 @@ def main(project_directory):
 
 if __name__ == "__main__":
     main()
+
