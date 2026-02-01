@@ -1,4 +1,5 @@
 import os
+import ast
 import click
 import inspect
 import platform
@@ -20,8 +21,17 @@ class ReActAgent():
     def parse_action(self, code_str: str) -> Tuple[str, List[str]]:
         pass
 
-    def parse_single_arg(self, arg_str: str):
-        pass
+    def _parse_single_arg(self, arg_str: str): # safely convert arg_str into a Python literal value
+        arg_str = arg_str.strip() 
+        if ((arg_str.startswith('"') and arg_str.endswith('"'))
+            or (arg_str.startswith("'") and arg_str.endswith("'"))
+        ):
+            return bytes(arg_str[1:-1], "utf-8").decode("unicode_escape")
+        
+        try:
+            return ast.literal_eval(arg_str)
+        except Exception:
+            return arg_str
 
     def call_model(self, messages):
         print(">>> Calling Ollama model, please wait ...")
