@@ -106,13 +106,15 @@ class ReActAgent():
                 if char == string_char and args_str[i - 1] != "\\": 
                     in_string = False 
                     string_char = None
-            current_arg += char
-            # handle the last argument
-            if current_arg.strip(): 
-                args.append(self._parse_single_arg(current_arg.strip()))
 
-            # return function name and argument list
-            return func_name, args 
+            current_arg += char
+            
+        # handle the last argument
+        if current_arg.strip(): 
+            args.append(self._parse_single_arg(current_arg.strip()))
+
+        # return function name and argument list
+        return func_name, args 
         """
             for example: 
                 input:  code_str = "move_to(10, 'kitchen', turn_left(90))"
@@ -207,4 +209,3 @@ def main(project_directory):
 
 if __name__ == "__main__":
     main()
-
