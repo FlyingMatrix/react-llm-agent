@@ -32,7 +32,7 @@ class ReActAgent():
             )
             if thought_match:
                 thought = thought_match.group(1)
-                print(f"\n\n>>> Thought: {thought}")
+                print(f"\n\n💭 Thought: {thought}")
 
             # final answer
             if "<final_answer>" in content:
@@ -49,7 +49,7 @@ class ReActAgent():
                 raise RuntimeError(">>> The model has not yet produced any <action> output...")
             action = action_match.group(1)
             tool_name, args = self.parse_action(action)
-            print(f"\n\n>>> Action: {tool_name}({', '.join(args)})") # -> "Action: tool_name(arg1, arg2, arg3)"     
+            print(f"\n\n🔧 Action: {tool_name}({', '.join(args)})") # -> "Action: tool_name(arg1, arg2, arg3)"     
 
             should_continue = input("\n\n >>> Do you want to continue?（y/n）") if tool_name == "run_terminal_command" else "y"
             if should_continue.lower() != "y":
@@ -61,7 +61,7 @@ class ReActAgent():
                 observation = self.tools[tool_name](*args) # relevant tool function is executed
             except Exception as e:
                 observation = f">>> An error occurred while executing the tool function: {str(e)}"
-            print(f"\n\n>>> Observation：{observation}") # here the observation is the return value of the tool function execution
+            print(f"\n\n🔍 Observation：{observation}") # here the observation is the return value of the tool function execution
 
             obs_msg = f"<observation>{observation}</observation>"
             messages.append({"role": "user", "content": obs_msg})
@@ -196,7 +196,7 @@ def main(project_directory):
     agent = ReActAgent(tools=tools, model="qwen3:8b", project_directory=project_dir)
     task = input(">>> Please input your task: ")
     final_answer = agent.run(task)
-    print(f"\n\n>>> Final Answer：{final_answer}")
+    print(f"\n\n✅ Final Answer：{final_answer}")
 
 if __name__ == "__main__":
     main()
