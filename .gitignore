@@ -1,2 +1,9 @@
-__pycache__
-task_prompt.txt
+# Ignore everything
+*
+
+# But not these specific files
+!.gitignore
+!README.md
+!LICENSE
+!agent.py
+!prompt_template.py
