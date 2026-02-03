@@ -31,7 +31,7 @@ Update Plan
 - **Responses** from `ReAct-LLM-Agent`:
   
   ```
-  TBD
+    TBD
   ```
 
 - **Task II**:
@@ -236,4 +236,68 @@ Update Plan
     4. Tasks will be saved in `tasks.json` automatically
   
     The application uses a JSON file for storage, with separate modules for logic, storage, and CLI interface as requested.
+  ```
+
+- **A Test on Task II**:
+  
+  ```
+   (ai-agent) **\react-llm-agent>python cli.py
+  To-Do List Application
+  1. Add Task
+  2. List Tasks
+  3. Mark Task as Completed
+  4. Exit
+  Select an option: 1
+  Enter task description: kick off meeting
+  To-Do List Application
+  1. Add Task
+  2. List Tasks
+  3. Mark Task as Completed
+  4. Exit
+  Select an option: 1
+  Enter task description: prototype development
+  To-Do List Application
+  1. Add Task
+  2. List Tasks
+  3. Mark Task as Completed
+  4. Exit
+  Select an option: 2
+  0:  kick off meeting
+  1:  prototype development
+  To-Do List Application
+  1. Add Task
+  2. List Tasks
+  3. Mark Task as Completed
+  4. Exit
+  Select an option: 3
+  Enter task ID to mark as completed: 0
+  To-Do List Application
+  1. Add Task
+  2. List Tasks
+  3. Mark Task as Completed
+  4. Exit
+  Select an option: 2
+  0: ✓ kick off meeting
+  1:  prototype development
+  To-Do List Application
+  1. Add Task
+  2. List Tasks
+  3. Mark Task as Completed
+  4. Exit
+  Select an option: 4
+  ```
+
+- **tasks.json**:
+  
+  ```json
+  [
+  {
+    "description": "kick off meeting",
+    "completed": true
+  },
+  {
+    "description": "prototype development",
+    "completed": false
+  }
+  ]  
   ```

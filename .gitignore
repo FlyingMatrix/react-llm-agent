@@ -7,3 +7,7 @@
 !LICENSE
 !agent.py
 !prompt_template.py
+!cli.py
+!logic.py
+!storage.py
+!tasks.json

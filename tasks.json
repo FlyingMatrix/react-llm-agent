@@ -1,0 +1,10 @@
+[
+  {
+    "description": "kick off meeting",
+    "completed": true
+  },
+  {
+    "description": "prototype development",
+    "completed": false
+  }
+]
