@@ -5,6 +5,8 @@ import click
 import inspect
 import platform
 import ollama
+import wikipedia
+from ddgs import DDGS
 from string import Template
 from typing import List, Callable, Tuple
 from prompt_template import react_system_prompt_template
@@ -186,13 +188,52 @@ def run_terminal_command(command):
     )
     return "Run successfully" if run_result.returncode == 0 else run_result.stderr
 
+def search_on_wikipedia(query: str, max_chars: int = 1500) -> str:
+    try:
+        wikipedia.set_lang("en")
+        summary = wikipedia.summary(query, sentences=6)
+        return f"[Wikipedia]\n{summary}"[:max_chars]
+    except Exception as e:
+        return f"[Wikipedia]\nNo reliable result found. Error: {str(e)}"
+    
+def search_on_DDGS(query: str, max_chars: int = 1500) -> str:
+    try:
+        with DDGS() as ddgs:
+            results = ddgs.text(
+                query,
+                max_results=5,
+                safesearch="moderate"
+            )
+
+            snippets = []
+            for r in results:
+                title = r.get("title", "")
+                body = r.get("body", "")
+                href = r.get("href", "")
+                snippets.append(f"- {title}\n  {body}\n  Source: {href}")
+
+            text = "[DDGS]\n" + "\n".join(snippets)
+            return text[:max_chars]
+
+    except Exception as e:
+        return f"[DDGS]\nNo reliable result found. Error: {str(e)}"
+    
+def search(query: str) -> str:
+    # try Wikipedia first
+    wiki_result = search_on_wikipedia(query)
+    if "No reliable result" not in wiki_result:
+        return wiki_result
+    
+    # fallback to DDGS
+    return search_on_DDGS(query)
+
 # create command-line interfaces
 @click.command()
 @click.argument('project_directory',
                 type=click.Path(exists=True, file_okay=False, dir_okay=True))
 def main(project_directory):
     project_dir = os.path.abspath(project_directory)
-    tools = [read_file, list_files, write_to_file, run_terminal_command]
+    tools = [read_file, list_files, write_to_file, run_terminal_command, search]
     agent = ReActAgent(tools=tools, model="qwen3:8b", project_directory=project_dir)
     task = input(">>> Please input your task: ")
     final_answer = agent.run(task)
