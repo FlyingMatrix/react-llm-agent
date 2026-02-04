@@ -98,7 +98,7 @@ A **ReAct agent** (short for **Reason + Act**) is an agent design pattern where 
 
 - **Task II: Code Generation**:
   
-  > Please input your task: Implement a Python command-line to-do application with separated modules for logic, storage, and CLI, The system should allow users to add tasks, list tasks, and mark tasks as completed.
+  > Implement a Python command-line to-do application with separated modules for logic, storage, and CLI, The system should allow users to add tasks, list tasks, and mark tasks as completed.
 
 - **Responses** from `ReAct-LLM-Agent`:
   
