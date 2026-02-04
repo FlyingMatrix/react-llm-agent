@@ -24,76 +24,76 @@ Update Plan
 
 ### ✅ Validation
 
-- **Task I: Multi-step Reasoning**:
+- **Task I: Multi-Step Reasoning**:
   
   > Find the population of the capital city of the country that hosted the 2020 Summer Olympics. Then determine whether that population is larger or smaller than the population of New York City.
 
 - **Responses** from `ReAct-LLM-Agent`:
   
   ```
-  >>> Calling Ollama model, please wait...
+    >>> Calling Ollama model, please wait...
   
-  💭 Thought: I need to find the population of the capital city of the country that hosted the 2020 Summer Olympics. First, I should determine which country hosted the 2020 Summer Olympics. Then, find the capital city of that country and its population. Finally, compare it to New York City's population.
+    💭 Thought: I need to find the population of the capital city of the country that hosted the 2020 Summer Olympics. First, I should determine which country hosted the 2020 Summer Olympics. Then, find the capital city of that country and its population. Finally, compare it to New York City's population.
   
-  🔧 Action: search(query="country that hosted 2020 Summer Olympics")
+    🔧 Action: search(query="country that hosted 2020 Summer Olympics")
   
-  🔍 Observation：[DDGS]
-  - List of Olympic Games host cities - Wikipedia
-    18 hours ago - Moritz (1928 and 1948 Winter Olympics), ... and 2020 Summer Olympics), Beijing (2008 Summer Olympics and 2022 Winter Olympics) and Salt Lake City (2002 and 2034 Winter Olympics). Stockholm hosted the 1912 Summer Olympics and the equestrian portion of the 1956 Summer Olympics. London and Paris have both hosted three Games, while Los Angeles will become the third city to gain that distinction ...
-    Source: https://en.wikipedia.org/wiki/List_of_Olympic_Games_host_cities
-  - Summer Olympic Games - Wikipedia
-    3 days ago - The other countries to have hosted the Summer Olympics are Belgium, Brazil, Canada, China, Finland, Italy, Mexico, Netherlands, South Korea, Soviet Union, Spain, and Sweden, with each of these countries having hosted on one occasion. Asia has hosted four times: in Tokyo (1964 and 2020), Seoul (1988), and Beijing (2008). The 2016 Games in Rio de Janeiro, Brazil, were the first Summer Olympics to be held in South America and the first that was held completely during the local "winter" season.
-    Source: https://en.wikipedia.org/wiki/Summer_Olympic_Games
-  - 2020 Summer Olympics - Wikipedia
-    1 week ago - As determined by a 2009 IOC ruling that banned international torch relays for any future Olympic Games, the 2020 Summer Olympics torch was scheduled to only visit the two countries of Greece and the host nation Japan. The first phase of the relay began on 12 March 2020, with the traditional flame l
-  >>> Calling Ollama model, please wait...
+    🔍 Observation：[DDGS]
+    - List of Olympic Games host cities - Wikipedia
+      18 hours ago - Moritz (1928 and 1948 Winter Olympics), ... and 2020 Summer Olympics), Beijing (2008 Summer Olympics and 2022 Winter Olympics) and Salt Lake City (2002 and 2034 Winter Olympics). Stockholm hosted the 1912 Summer Olympics and the equestrian portion of the 1956 Summer Olympics. London and Paris have both hosted three Games, while Los Angeles will become the third city to gain that distinction ...
+      Source: https://en.wikipedia.org/wiki/List_of_Olympic_Games_host_cities
+    - Summer Olympic Games - Wikipedia
+      3 days ago - The other countries to have hosted the Summer Olympics are Belgium, Brazil, Canada, China, Finland, Italy, Mexico, Netherlands, South Korea, Soviet Union, Spain, and Sweden, with each of these countries having hosted on one occasion. Asia has hosted four times: in Tokyo (1964 and 2020), Seoul (1988), and Beijing (2008). The 2016 Games in Rio de Janeiro, Brazil, were the first Summer Olympics to be held in South America and the first that was held completely during the local "winter" season.
+      Source: https://en.wikipedia.org/wiki/Summer_Olympic_Games
+    - 2020 Summer Olympics - Wikipedia
+      1 week ago - As determined by a 2009 IOC ruling that banned international torch relays for any future Olympic Games, the 2020 Summer Olympics torch was scheduled to only visit the two countries of Greece and the host nation Japan. The first phase of the relay began on 12 March 2020, with the traditional flame l
+    >>> Calling Ollama model, please wait...
   
-  💭 Thought: The search results indicate that the 2020 Summer Olympics were hosted by Japan, with Tokyo as the host city. Since Tokyo is also the capital of Japan, I need to find its population. Next, I will search for Tokyo's population.
+    💭 Thought: The search results indicate that the 2020 Summer Olympics were hosted by Japan, with Tokyo as the host city. Since Tokyo is also the capital of Japan, I need to find its population. Next, I will search for Tokyo's population.
   
-  🔧 Action: search(query="population of Tokyo, Japan")
+    🔧 Action: search(query="population of Tokyo, Japan")
   
-  🔍 Observation：[DDGS]
-  - Tokyo - Wikipedia
-    6 days ago - Tokyo, officially the Tokyo Metropolis, is the capital and most populous city of Japan. With a population of over 14 million in the city proper in 2023 , it is one of the most populous urban areas in the world.
-    Source: https://en.wikipedia.org/wiki/Tokyo
-  - Demographics of Tokyo - Wikipedia
-    1 week ago - Although the rate of increase slowed, the population reached 11.67 million in 1975. Sustained migration from rural Japan throughout the 1960s and 70s created a massive urban sprawl.
-    Source: https://en.wikipedia.org/wiki/Demographics_of_Tokyo
-  - Greater Tokyo Area - Wikipedia
-    2 weeks ago - As of 2026, the United Nations estimates the total population at 36,954,512 . It is the second-largest single metropolitan area in the world in terms of built-up or urban function landmass at 8,547 square kilometres (3,300 sq mi), behind only ...
-    Source: https://en.wikipedia.org/wiki/Greater_Tokyo_Area
-  - Tokyo Population 2026
-    1 month ago - Now, to find the rough population density of the Tokyo area, we combine the total population with the available space for the residents, which comes to 6,224.66 people living per square kilometer (16,121.8 residents per square mile).
-    Source: https://worldpopulationreview.com/cities/japan/tokyo
-  - Tokyo, Japan Metro Area Population (1950-2026) | MacroTrends
-    The metro area population of Tokyo in 2024 was 37,115,000 , a 0.21% decline from 2023.
-    Source: https://www.macrotrends.net/global-metrics/cities/21
-  >>> Calling Ollama model, please wait...
+    🔍 Observation：[DDGS]
+    - Tokyo - Wikipedia
+      6 days ago - Tokyo, officially the Tokyo Metropolis, is the capital and most populous city of Japan. With a population of over 14 million in the city proper in 2023 , it is one of the most populous urban areas in the world.
+      Source: https://en.wikipedia.org/wiki/Tokyo
+    - Demographics of Tokyo - Wikipedia
+      1 week ago - Although the rate of increase slowed, the population reached 11.67 million in 1975. Sustained migration from rural Japan throughout the 1960s and 70s created a massive urban sprawl.
+      Source: https://en.wikipedia.org/wiki/Demographics_of_Tokyo
+    - Greater Tokyo Area - Wikipedia
+      2 weeks ago - As of 2026, the United Nations estimates the total population at 36,954,512 . It is the second-largest single metropolitan area in the world in terms of built-up or urban function landmass at 8,547 square kilometres (3,300 sq mi), behind only ...
+      Source: https://en.wikipedia.org/wiki/Greater_Tokyo_Area
+    - Tokyo Population 2026
+      1 month ago - Now, to find the rough population density of the Tokyo area, we combine the total population with the available space for the residents, which comes to 6,224.66 people living per square kilometer (16,121.8 residents per square mile).
+      Source: https://worldpopulationreview.com/cities/japan/tokyo
+    - Tokyo, Japan Metro Area Population (1950-2026) | MacroTrends
+      The metro area population of Tokyo in 2024 was 37,115,000 , a 0.21% decline from 2023.
+      Source: https://www.macrotrends.net/global-metrics/cities/21
+    >>> Calling Ollama model, please wait...
   
-  💭 Thought: The search results show that Tokyo, Japan, hosted the 2020 Summer Olympics. The population of Tokyo (city proper) is over 14 million (2023 estimate). Now I need to find New York City's population to compare the two.
+    💭 Thought: The search results show that Tokyo, Japan, hosted the 2020 Summer Olympics. The population of Tokyo (city proper) is over 14 million (2023 estimate). Now I need to find New York City's population to compare the two.
   
-  🔧 Action: search(query="population of New York City")
+    🔧 Action: search(query="population of New York City")
   
-  🔍 Observation：[DDGS]
-  - Demographics of New York City - Wikipedia
-    New York City is a large and ethnically diverse metropolis. It is the largest city in the United States, and has a long history of international immigration. The New York region continues to be by far the leading metropolitan gateway for legal immigrants admitted into the United States.
-    Source: https://en.wikipedia.org/wiki/Demographics_of_New_York_City
-  - Population of New York City 2026 — United States of America
-    Population New York City — composition, density and population of the country.— Population density. 6,802.34 persons/sq.km². Male.
-    Source: https://www.aznations.com/population/us/cities/new-york-city
-  - New York City Population : A Closer Look at the Vibrant Tapestry
-    Discover the diverse population of New York City , a captivating metropolis known for its cultural richness and iconic neighborhoods.
-    Source: https://www.elikarealestate.com/blog/new-york-city-population/
-  - The population of New York City . | Wyzant Ask An Expert
-    By the year 2000, its population grew to approximately 8,008,000. What was the average rate of change in the population per year from the year 1900 to the year 2000? Show your work.
-    Source: https://www.wyzant.com/resources/answers/887563/the-population-of-new-york-city
-  - How many people live in new york city ? - HotBot
-    Discover the dynamic population of New York City , its historical growth, diverse demographics, and future challenges. Learn about the Big Apple's unique urban t
-  >>> Calling Ollama model, please wait...
+    🔍 Observation：[DDGS]
+    - Demographics of New York City - Wikipedia
+      New York City is a large and ethnically diverse metropolis. It is the largest city in the United States, and has a long history of international immigration. The New York region continues to be by far the leading metropolitan gateway for legal immigrants admitted into the United States.
+      Source: https://en.wikipedia.org/wiki/Demographics_of_New_York_City
+    - Population of New York City 2026 — United States of America
+      Population New York City — composition, density and population of the country.— Population density. 6,802.34 persons/sq.km². Male.
+      Source: https://www.aznations.com/population/us/cities/new-york-city
+    - New York City Population : A Closer Look at the Vibrant Tapestry
+      Discover the diverse population of New York City , a captivating metropolis known for its cultural richness and iconic neighborhoods.
+      Source: https://www.elikarealestate.com/blog/new-york-city-population/
+    - The population of New York City . | Wyzant Ask An Expert
+      By the year 2000, its population grew to approximately 8,008,000. What was the average rate of change in the population per year from the year 1900 to the year 2000? Show your work.
+      Source: https://www.wyzant.com/resources/answers/887563/the-population-of-new-york-city
+    - How many people live in new york city ? - HotBot
+      Discover the dynamic population of New York City , its historical growth, diverse demographics, and future challenges. Learn about the Big Apple's unique urban t
+    >>> Calling Ollama model, please wait...
   
-  💭 Thought: The population of Tokyo (city proper) is over 14 million (2023 estimate). New York City's population is approximately 8.3 million (city proper, 2023 estimate). Therefore, Tokyo's population is larger than New York City's.
+    💭 Thought: The population of Tokyo (city proper) is over 14 million (2023 estimate). New York City's population is approximately 8.3 million (city proper, 2023 estimate). Therefore, Tokyo's population is larger than New York City's.
   
-  ✅ Final Answer：The capital city of the country that hosted the 2020 Summer Olympics is Tokyo, Japan, with a population of over 14 million (as of 2023). This is larger than New York City's population of approximately 8.3 million (as of 2023). Thus, Tokyo's population is larger than New York City's.
+    ✅ Final Answer：The capital city of the country that hosted the 2020 Summer Olympics is Tokyo, Japan, with a population of over 14 million (as of 2023). This is larger than New York City's population of approximately 8.3 million (as of 2023). Thus, Tokyo's population is larger than New York City's.
   ```
 
 - **Task II: Code Generation**:
