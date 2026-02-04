@@ -300,7 +300,7 @@ A **ReAct agent** (short for **Reason + Act**) is an agent design pattern where 
     The application uses a JSON file for storage, with separate modules for logic, storage, and CLI interface as requested.
   ```
 
-- **A Test on Task II**:
+- **Generated Code Test for Task II**:
   
   ```
      (ai-agent) **\react-llm-agent>python cli.py
@@ -349,7 +349,7 @@ A **ReAct agent** (short for **Reason + Act**) is an agent design pattern where 
     Select an option: 4
   ```
 
-- **tasks.json**:
+- **Result in `tasks.json`**:
   
   ```json
     [
