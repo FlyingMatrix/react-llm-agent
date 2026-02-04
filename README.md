@@ -9,17 +9,17 @@ A **ReAct agent** (short for **Reason + Act**) is an agent design pattern where 
 ### 🔄 ReAct Agent Pipeline
 
 ```
-Task Goal
-    ↓
-Reasoning / Planning
-    ↓
-Action / Tool Execution
-    ↓
-Observation / Result
-    ↓
-Update Plan
-    ↓
-(loop back to Reasoning until the task goal is achieved)
+  Task Goal
+      ↓
+  Reasoning / Planning
+      ↓
+  Action / Tool Execution
+      ↓
+  Observation / Result
+      ↓
+  Update Plan
+      ↓
+  (loop back to Reasoning until the task goal is achieved)
 ```
 
 ### ✅ Validation
@@ -362,4 +362,38 @@ Update Plan
         "completed": false
       }
     ]  
+  ```
+
+- **Task III: Research and Summary**:
+  
+  > Summarize the paper in a single paragraph of no more than four sentences. The paper’s arXiv index is 2511.13720.
+
+- **Responses** from `ReAct-LLM-Agent`:
+  
+  ```
+    >>> Calling Ollama model, please wait...
+    💭 Thought: I need to find the paper with the arXiv index 2511.13720 to summarize it. I'll use the search tool to retrieve the paper's information.
+  
+    🔧 Action: search(query="arXiv:2511.13720")
+  
+    🔍 Observation：[DDGS]
+    - [ 2511 . 13720 ] Back to Basics: Let Denoising Generative Models Denoise
+      Today's denoising diffusion models do not "denoise" in the classical sense, i.e., they do not directly predict clean images. Rather, the neural networks predict noise or a noised quantity.
+      Source: https://arxiv.org/abs/2511.13720
+    - Paper page - Back to Basics: Let Denoising Generative Models Denoise
+      Cite arxiv .org/abs/ 2511 . 13720 in a model README.md to link it from this page.
+      Source: https://huggingface.co/papers/2511.13720
+    - GitHub - LTH14/JiT: PyTorch implementation of JiT https...
+      @article{li2025jit, title={Back to Basics: Let Denoising Generative Models Denoise}, author={Li, Tianhong and He, Kaiming}, journal={arXiv preprint arXiv : 2511 . 13720 }, year={2025} }. JiT adopts a minimalist and self-contained design for pixel-level high-resolution image diffusion.
+      Source: https://github.com/LTH14/JiT
+    - (PDF) Back to Basics: Let Denoising Generative Models Denoise
+      DOI:10.48550/ arXiv . 2511 . 13720 . License.agents inside of scalable world models. arXiv:2509.24527, 2025. [19] Alex Henry, Prudhvi Raj Dachapally, Shubham Shantaram. Pawar, and Yuxuan Chen. Query -key normalization for. Transformers. In Findings of EMNLP, 2020.
+      Source: https://www.researchgate.net/publication/397713136_Back_to_Basics_Let_Denoising_Generative_Models_Denoise
+    - The unification of representation learning and generative modelling
+      Better Together: Leveraging Unpaired Multimodal Data for Stronger Unimo
+    >>> Calling Ollama model, please wait...
+  
+    💭 Thought: The search results show the paper's title, authors, and key points. The paper critiques current denoising diffusion models for not directly predicting clean images and proposes a return to classical denoising methods. It also mentions a PyTorch implementation called JiT. I can now summarize this in four sentences.
+  
+    ✅ Final Answer：The paper 'Back to Basics: Let Denoising Generative Models Denoise' (arXiv:2511.13720) argues that modern denoising diffusion models fail to 'denoise' in the classical sense, as they predict noise rather than directly generating clean images. The authors advocate for a foundational approach, emphasizing that these models should focus on removing noise to produce accurate outputs. They introduce JiT, a PyTorch implementation with a minimalist design, aimed at achieving high-resolution image diffusion through self-contained, pixel-level processing. The work highlights a shift toward simplicity and effectiveness in generative modeling frameworks.
   ```
