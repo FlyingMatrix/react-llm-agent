@@ -22,11 +22,45 @@ A **ReAct agent** (short for **Reason + Act**) is an agent design pattern where 
   (loop back to Reasoning until the task goal is achieved)
 ```
 
+### 💻 Installation and Usage
+
+1. **Clone the repository:**
+   
+   ```bash
+   git clone https://github.com/FlyingMatrix/react-llm-agent.git
+   cd ./react-llm-agent
+   ```
+
+2. **Create and activate a virtual environment (optional):**
+   
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+   ```
+
+3. **Install the required dependencies:**
+   
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Pull Qwen3:8b model locally:**
+   
+   ```bash
+   ollama pull qwen3:8b
+   ```
+
+5. **Run the ReAct-LLM-Agent:**
+   
+   ```bash
+   python agent.py ./
+   ```
+
 ### ✅ Validation
 
 - **Task I: Multi-Step Reasoning**:
   
-  > Find the population of the capital city of the country that hosted the 2020 Summer Olympics. Then determine whether that population is larger or smaller than the population of New York City.
+  > "Find the population of the capital city of the country that hosted the 2020 Summer Olympics. Then determine whether that population is larger or smaller than the population of New York City."
 
 - **Responses** from `ReAct-LLM-Agent`:
   
@@ -98,7 +132,7 @@ A **ReAct agent** (short for **Reason + Act**) is an agent design pattern where 
 
 - **Task II: Code Generation**:
   
-  > Implement a Python command-line to-do application with separated modules for logic, storage, and CLI, The system should allow users to add tasks, list tasks, and mark tasks as completed.
+  > "Implement a Python command-line to-do application with separated modules for logic, storage, and CLI, The system should allow users to add tasks, list tasks, and mark tasks as completed."
 
 - **Responses** from `ReAct-LLM-Agent`:
   
@@ -366,7 +400,7 @@ A **ReAct agent** (short for **Reason + Act**) is an agent design pattern where 
 
 - **Task III: Research and Summary**:
   
-  > Summarize the paper in a single paragraph of no more than four sentences. The paper’s arXiv index is 2511.13720.
+  > "Summarize the paper in a single paragraph of no more than four sentences. The paper’s arXiv index is 2511.13720."
 
 - **Responses** from `ReAct-LLM-Agent`:
   
